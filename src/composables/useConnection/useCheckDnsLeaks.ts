@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import unique from '@/helpers/unique';
 import useConnection from '@/composables/useConnection/useConnection';
+import useStore from '@/composables/useStore';
 
 export type DnsServer = {
   hostname: string;
@@ -13,11 +14,12 @@ export type DnsServer = {
   organization: string;
 };
 
-const DNSLEAK_URL = 'dnsleak.am.i.mullvad.net';
+const { connCheckConfig } = useStore();
 
 const dnsLeakRequest = async () => {
+  const { dns_leak_domain } = connCheckConfig.value;
   const uuid = uuidv4();
-  const response = await fetch(`https://${uuid}.${DNSLEAK_URL}`, {
+  const response = await fetch(`https://${uuid}.${dns_leak_domain}`, {
     headers: { Accept: 'application/json' },
     method: 'GET',
   });

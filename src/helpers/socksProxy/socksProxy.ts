@@ -6,6 +6,7 @@ import {
   ProxyInfoMap,
   ProxyInfo,
 } from '@/helpers/socksProxy/socksProxy.types';
+import { connCheckConfig, DEFAULT_CONFIG } from '@/helpers/config';
 import { checkDomain } from '@/helpers/domain';
 import { getRandomSessionProxy } from '@/helpers/socksProxy/getRandomSessionProxy';
 import { getActiveTabDetails } from '@/helpers/tabs';
@@ -16,6 +17,7 @@ import { getActiveTabDetails } from '@/helpers/tabs';
 export const handleProxyRequest = async (details: browser.proxy._OnRequestDetails) => {
   try {
     const {
+      connCheckConfig,
       excludedHosts,
       globalProxy,
       globalProxyDetails,
@@ -48,7 +50,7 @@ export const handleProxyRequest = async (details: browser.proxy._OnRequestDetail
 
     // 3. When the request if a conncheck/DNS check originating from the extension,
     // we want to use the same proxy as the active tab, to get a consistent conncheck result
-    if (isExtConnCheck(details)) {
+    if (isExtConnCheck(details, connCheckConfig)) {
       return getProxyForExtensionConnectionCheck(
         isGlobalProxyEnabled,
         globalProxy,
@@ -92,6 +94,7 @@ export const handleProxyRequest = async (details: browser.proxy._OnRequestDetail
 };
 
 async function getLocalStorageItems(): Promise<{
+  connCheckConfig: connCheckConfig;
   excludedHosts: string[];
   globalProxy: ProxyInfo;
   globalProxyDetails: ProxyDetails;
@@ -100,6 +103,7 @@ async function getLocalStorageItems(): Promise<{
   randomProxyMode: boolean;
 }> {
   const data = await browser.storage.local.get([
+    'connCheckConfig',
     'excludedHosts',
     'globalProxy',
     'globalProxyDetails',
@@ -109,6 +113,7 @@ async function getLocalStorageItems(): Promise<{
   ]);
 
   return {
+    connCheckConfig: JSON.parse(data.connCheckConfig),
     excludedHosts: JSON.parse(data.excludedHosts),
     globalProxy: JSON.parse(data.globalProxy),
     globalProxyDetails: JSON.parse(data.globalProxyDetails),
@@ -139,13 +144,16 @@ const getCurrentHost = (details: RequestDetails) => {
   return new URL(details.url).hostname;
 };
 
-export const isExtConnCheck = (details: RequestDetails): boolean => {
+export const isExtConnCheck = (
+  details: RequestDetails,
+  config: connCheckConfig = DEFAULT_CONFIG,
+): boolean => {
   const isExtensionRequest = Boolean(details.documentUrl?.startsWith('moz-extension://'));
   const isConnCheck =
-    details.url === 'https://ipv4.am.i.mullvad.net/json' ||
-    details.url === 'https://ipv6.am.i.mullvad.net/json';
+    details.url === `${config.ipv4_url}/json` || details.url === `${config.ipv6_url}/json`;
   const isDNSCheck =
-    checkDomain(details.url).domain === 'mullvad.net' && details.url.endsWith('am.i.mullvad.net/');
+    checkDomain(details.url).domain === 'mullvad.net' &&
+    details.url.endsWith(`${config.dns_leak_domain}/`);
 
   return isExtensionRequest && (isConnCheck || isDNSCheck);
 };

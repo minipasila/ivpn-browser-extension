@@ -3,13 +3,15 @@ import type {
   Connection,
   Ipv4ServerResponse,
 } from '@/helpers/connCheck.types';
+import { getConfig } from '@/helpers/config';
 
 export const connCheckIpv4 = async (): Promise<Connection> => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 6000);
 
   try {
-    const response = await fetch('https://ipv4.am.i.mullvad.net/json', {
+    const { ipv4_url } = await getConfig();
+    const response = await fetch(`${ipv4_url}/json`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +37,8 @@ export const connCheckIpv4 = async (): Promise<Connection> => {
 
 export const connCheckIpv6 = async (): Promise<string | undefined> => {
   try {
-    const response = await fetch('https://ipv6.am.i.mullvad.net/json', {
+    const { ipv6_url } = await getConfig();
+    const response = await fetch(`${ipv6_url}/json`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
