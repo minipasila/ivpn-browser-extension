@@ -1,4 +1,4 @@
-import { ref, readonly } from 'vue';
+import { ref, readonly, onUnmounted } from 'vue';
 import { getProxyPermissions, requestProxyPermissions } from '@/helpers/permissions';
 
 const isGranted = ref(false);
@@ -12,7 +12,22 @@ const requestPermissions = async (): Promise<boolean> => {
   return isGranted.value;
 };
 
+// On module load so every context (popup, options) starts with the correct state.
+void checkProxyPermissions();
+
 const useProxyPermissions = () => {
+  // Keep the permission state in sync if permissions are granted or revoked
+  // from any context (e.g. the browser's permission management UI).
+  const syncPermissionState = () => void checkProxyPermissions();
+
+  browser.permissions.onAdded.addListener(syncPermissionState);
+  browser.permissions.onRemoved.addListener(syncPermissionState);
+
+  onUnmounted(() => {
+    browser.permissions.onAdded.removeListener(syncPermissionState);
+    browser.permissions.onRemoved.removeListener(syncPermissionState);
+  });
+
   return {
     isGranted: readonly(isGranted),
     checkProxyPermissions,
