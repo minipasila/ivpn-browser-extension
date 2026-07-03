@@ -12,7 +12,6 @@ export const connCheckIpv4 = async (): Promise<Connection> => {
   try {
     const { ipv4_url } = await getConfig();
     const response = await fetch(`${ipv4_url}/json`, {
-      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -39,7 +38,6 @@ export const connCheckIpv6 = async (): Promise<string | undefined> => {
   try {
     const { ipv6_url } = await getConfig();
     const response = await fetch(`${ipv6_url}/json`, {
-      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },

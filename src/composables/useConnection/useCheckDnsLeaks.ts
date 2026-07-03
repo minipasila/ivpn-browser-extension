@@ -21,7 +21,6 @@ const dnsLeakRequest = async () => {
   const uuid = uuidv4();
   const response = await fetch(`https://${uuid}.${dns_leak_domain}`, {
     headers: { Accept: 'application/json' },
-    method: 'GET',
   });
   if (!response.ok) {
     throw new Error('Network response was not ok');

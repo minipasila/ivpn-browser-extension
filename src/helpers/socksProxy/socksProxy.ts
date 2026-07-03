@@ -6,7 +6,7 @@ import {
   ProxyInfoMap,
   ProxyInfo,
 } from '@/helpers/socksProxy/socksProxy.types';
-import { connCheckConfig, DEFAULT_CONFIG } from '@/helpers/config';
+import { ConnCheckConfig, DEFAULT_CONFIG } from '@/helpers/config';
 import { checkDomain } from '@/helpers/domain';
 import { getRandomSessionProxy } from '@/helpers/socksProxy/getRandomSessionProxy';
 import { getActiveTabDetails } from '@/helpers/tabs';
@@ -94,7 +94,7 @@ export const handleProxyRequest = async (details: browser.proxy._OnRequestDetail
 };
 
 async function getLocalStorageItems(): Promise<{
-  connCheckConfig: connCheckConfig;
+  connCheckConfig: ConnCheckConfig;
   excludedHosts: string[];
   globalProxy: ProxyInfo;
   globalProxyDetails: ProxyDetails;
@@ -146,7 +146,7 @@ const getCurrentHost = (details: RequestDetails) => {
 
 export const isExtConnCheck = (
   details: RequestDetails,
-  config: connCheckConfig = DEFAULT_CONFIG,
+  config: ConnCheckConfig = DEFAULT_CONFIG,
 ): boolean => {
   const isExtensionRequest = Boolean(details.documentUrl?.startsWith('moz-extension://'));
   const isConnCheck =

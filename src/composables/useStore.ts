@@ -9,9 +9,9 @@ import { Tab } from '@/helpers/browserExtension';
 import useBrowserStorageLocal from '@/composables/useBrowserStorageLocal';
 import { SocksProxy } from '@/helpers/socksProxy/socksProxies.types';
 import { HistoryEntriesMap } from '@/composables/useProxyHistory/HistoryEntries.types';
-import { connCheckConfig, DEFAULT_CONFIG } from '@/helpers/config';
+import { ConnCheckConfig, DEFAULT_CONFIG } from '@/helpers/config';
 
-const connCheckConfig = useBrowserStorageLocal<connCheckConfig>('connCheckConfig', DEFAULT_CONFIG);
+const connCheckConfig = useBrowserStorageLocal<ConnCheckConfig>('connCheckConfig', DEFAULT_CONFIG);
 const excludedHosts = useBrowserStorageLocal<string[]>('excludedHosts', []);
 const flatProxiesList = useBrowserStorageLocal<SocksProxy[]>('flatProxiesList', []);
 const globalProxy = useBrowserStorageLocal<ProxyInfo>('globalProxy', {} as ProxyInfo);
