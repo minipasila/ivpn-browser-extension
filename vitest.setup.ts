@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 global.browser = {
   runtime: {
     getManifest: vi.fn(() => ({
-      version: '0.9.10',
+      version: '0.9.11',
       name: 'Mullvad Browser Extension',
     })),
     sendMessage: vi.fn(),
