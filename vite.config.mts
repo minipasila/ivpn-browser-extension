@@ -2,8 +2,7 @@
 import { dirname, relative } from 'path';
 import { defineConfig, UserConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
-import WindiCSS from 'vite-plugin-windicss';
-import windiConfig from './windi.config';
+import UnoCSS from 'unocss/vite';
 import { r, port, isDev } from './scripts/utils';
 
 export const sharedConfig: UserConfig = {
@@ -58,12 +57,5 @@ export default defineConfig(({ command }) => ({
       },
     },
   },
-  plugins: [
-    ...sharedConfig.plugins!,
-
-    // https://github.com/antfu/vite-plugin-windicss
-    WindiCSS({
-      config: windiConfig,
-    }),
-  ],
+  plugins: [...sharedConfig.plugins!, UnoCSS()],
 }));
