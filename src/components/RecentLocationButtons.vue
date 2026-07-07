@@ -24,10 +24,15 @@ const buttons = computed(() =>
 <template>
   <div class="space-y-2">
     <div v-for="{ label, connection } in buttons" :key="label" class="flex gap-2">
-      <Button class="flex-1 truncate" @click="selectLocation(connection)">
+      <Button class="flex-1" whitespace="normal" @click="selectLocation(connection)">
         {{ label }}
       </Button>
-      <Button color="error" size="small" @click="removeEntry(connection)">
+      <Button
+        class="flex flex-items-center"
+        color="error"
+        size="small"
+        @click="removeEntry(connection)"
+      >
         <FeTrash />
       </Button>
     </div>

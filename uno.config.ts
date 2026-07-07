@@ -11,4 +11,5 @@ export default defineConfig({
       sans: "'Source Sans Pro', Helvetica, Arial, sans-serif",
     },
   },
+  safelist: ['whitespace-normal', 'whitespace-nowrap'],
 });

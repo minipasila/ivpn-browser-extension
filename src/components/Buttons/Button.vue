@@ -1,40 +1,48 @@
 <script lang="ts" setup>
-import { computed, toRefs } from 'vue';
+import { computed } from 'vue';
 
 type Props = {
   color?: string;
   textColor?: string;
   href?: string;
   size?: 'small' | 'medium' | 'large';
+  whitespace?: 'nowrap' | 'normal';
 };
 
-const props = defineProps<Props>();
+// In Vue 3.5 and above, variables destructured from the return value of defineProps are reactive.
+const {
+  href = undefined,
+  color = undefined,
+  textColor = undefined,
+  size = undefined,
+  whitespace = 'nowrap',
+} = defineProps<Props>();
+
 const type = computed(() => {
-  if (props.href) {
+  if (href) {
     return 'a';
   }
   return 'button';
 });
 
-const { color, textColor } = toRefs(props);
 const classes = computed(() => {
   let colors = '';
   let sizeClass = '';
 
-  if (color?.value) {
-    colors = `bg-${color.value} text-${textColor?.value || 'white'}`;
+  if (color) {
+    colors = `bg-${color} text-${textColor || 'white'}`;
   }
 
-  if (props.size) {
-    sizeClass = `btn-${props.size}`;
+  if (size) {
+    sizeClass = `btn-${size}`;
   }
 
-  return `${colors} ${sizeClass}`;
+  return `whitespace-${whitespace} ${colors} ${sizeClass}`;
 });
 </script>
 
 <template>
-  <component :is="type" :href="href" class="btn whitespace-nowrap" :class="classes">
+  <component :is="type" :href="href" class="btn" :class="classes">
     <slot></slot>
   </component>
 </template>
