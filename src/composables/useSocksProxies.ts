@@ -28,9 +28,16 @@ const getSocksProxies = async () => {
   try {
     const response = await fetch(SOCKS_API_URL);
     const data: SocksProxy[] = await response.json();
-    flatProxiesList.value = data.filter((proxy: SocksProxy) => {
-      return proxy.online && proxy.ipv4_address && proxy.hostname;
-    });
+    flatProxiesList.value = data
+      .filter((proxy: SocksProxy) => {
+        return proxy.online && proxy.ipv4_address && proxy.hostname;
+      })
+      .map((proxy: SocksProxy) => {
+        proxy.hostname = proxy.hostname
+          .replace('wg-socks5-', '')
+          .replace('.relays.mullvad.net', '');
+        return proxy;
+      });
   } catch (e: unknown) {
     isError.value = true;
 

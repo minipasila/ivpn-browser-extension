@@ -152,7 +152,7 @@ const clearError = () => {
             <h4 class="font-semibold">Server</h4>
             <div class="ml-2">{{ globalProxyDetails.server }}</div>
           </div>
-          <div class="flex">
+          <div class="flex items-center">
             <h4 class="font-semibold pr-2">Proxy DNS</h4>
             <n-checkbox
               size="large"
@@ -232,7 +232,7 @@ const clearError = () => {
               <h4 class="font-semibold">Server</h4>
               <div class="ml-2">{{ hostProxiesDetails[host].server }}</div>
             </div>
-            <div class="flex">
+            <div class="flex items-center">
               <h4 class="font-semibold pr-2">Proxy DNS</h4>
               <n-checkbox
                 size="large"

@@ -190,7 +190,7 @@ const setGlobalProxy = ({
 
   const newGlobalProxyDetails: ProxyDetails = {
     socksEnabled: true,
-    server: hostname!.replace('socks5-', '')!.replace('.relays.mullvad.net', ''),
+    server: hostname,
     country: country,
     countryCode: countryCode,
     city: city,
@@ -227,7 +227,7 @@ const setCustomProxy = (
 
   const newHostProxyDetails: ProxyDetails = {
     socksEnabled: true,
-    server: hostname!.replace('socks5-', '')!.replace('.relays.mullvad.net', ''),
+    server: hostname,
     country: country,
     countryCode: countryCode,
     city: city,

@@ -39,7 +39,7 @@ export async function getRandomSessionProxy(domain: string) {
 
       const proxyDetails: ProxyDetails = {
         socksEnabled: true,
-        server: randomProxy.hostname!.replace('socks5-', '')!.replace('.relays.mullvad.net', ''),
+        server: randomProxy.hostname,
         country: randomProxy.location.country,
         countryCode: addCountryCodeToProxy(randomProxy).location.countryCode,
         city: randomProxy.location.city,

@@ -26,9 +26,8 @@ const storeSocksProxyUsage = (entry: HistoryEntryDetails) => {
 
 const getLabel = (historyEntry: HistoryEntry) => {
   const { country, countryCode, city, hostname } = historyEntry;
-  const servername = hostname.split('.relays.mullvad.net')[0];
 
-  return `${city ? city + `, ${countryCode.toUpperCase()}` : country} (${servername})`;
+  return `${city ? city + `, ${countryCode.toUpperCase()}` : country} (${hostname})`;
 };
 
 const removeEntry = (entry: HistoryEntry) => {
