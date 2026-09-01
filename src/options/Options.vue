@@ -23,7 +23,7 @@ const defaultTab = computed(() => optionsActiveTab.value);
       size="large"
     >
       <template #prefix>
-        <n-avatar size="small" src="/assets/mullvad-logo.svg" />
+        <n-avatar size="small" src="/assets/ivpn-logo.svg" />
       </template>
 
       <n-tab-pane name="settings" tab="Settings">

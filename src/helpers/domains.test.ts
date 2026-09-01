@@ -58,8 +58,8 @@ describe('domain helpers', () => {
 
   describe('isValidDomain', () => {
     it('should return true for valid domains', () => {
-      expect(isValidDomain('mullvad.net')).toBe(true);
-      expect(isValidDomain('am.i.mullvad.net')).toBe(true);
+      expect(isValidDomain('ivpn.net')).toBe(true);
+      expect(isValidDomain('api.ivpn.net')).toBe(true);
     });
 
     it('should return false for invalid domains', () => {

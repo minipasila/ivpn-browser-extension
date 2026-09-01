@@ -7,7 +7,7 @@ import {
   ProxyInfoMap,
   ProxyInfo,
 } from '@/helpers/socksProxy/socksProxy.types';
-import { ConnCheckConfig, DEFAULT_CONFIG } from '@/helpers/config';
+import { GEO_LOOKUP_URL } from '@/helpers/connCheck';
 import { checkDomain } from '@/helpers/domain';
 import { getRandomSessionProxy } from '@/helpers/socksProxy/getRandomSessionProxy';
 import { getActiveTabDetails } from '@/helpers/tabs';
@@ -18,7 +18,6 @@ import { getActiveTabDetails } from '@/helpers/tabs';
 export const handleProxyRequest = async (details: browser.proxy._OnRequestDetails) => {
   try {
     const {
-      connCheckConfig,
       excludedHosts,
       globalProxy,
       globalProxyDetails,
@@ -49,9 +48,10 @@ export const handleProxyRequest = async (details: browser.proxy._OnRequestDetail
       return { type: 'direct' };
     }
 
-    // 3. When the request if a conncheck/DNS check originating from the extension,
-    // we want to use the same proxy as the active tab, to get a consistent conncheck result
-    if (isExtConnCheck(details, connCheckConfig)) {
+    // 3. When the request is a connection check (geo-lookup) originating from
+    // the extension, we want to use the same proxy as the active tab, to get
+    // a consistent connection check result.
+    if (isExtConnCheck(details)) {
       return getProxyForExtensionConnectionCheck(
         isGlobalProxyEnabled,
         globalProxy,
@@ -95,7 +95,6 @@ export const handleProxyRequest = async (details: browser.proxy._OnRequestDetail
 };
 
 async function getLocalStorageItems(): Promise<{
-  connCheckConfig: ConnCheckConfig;
   excludedHosts: string[];
   globalProxy: ProxyInfo;
   globalProxyDetails: ProxyDetails;
@@ -104,7 +103,6 @@ async function getLocalStorageItems(): Promise<{
   randomProxyMode: boolean;
 }> {
   const data = await browser.storage.local.get([
-    'connCheckConfig',
     'excludedHosts',
     'globalProxy',
     'globalProxyDetails',
@@ -114,7 +112,6 @@ async function getLocalStorageItems(): Promise<{
   ]);
 
   return {
-    connCheckConfig: JSON.parse(data.connCheckConfig),
     excludedHosts: JSON.parse(data.excludedHosts),
     globalProxy: JSON.parse(data.globalProxy),
     globalProxyDetails: JSON.parse(data.globalProxyDetails),
@@ -124,18 +121,11 @@ async function getLocalStorageItems(): Promise<{
   };
 }
 
-export const isExtConnCheck = (
-  details: RequestDetails,
-  config: ConnCheckConfig = DEFAULT_CONFIG,
-): boolean => {
+export const isExtConnCheck = (details: RequestDetails): boolean => {
   const isExtensionRequest = Boolean(details.documentUrl?.startsWith('moz-extension://'));
-  const isConnCheck =
-    details.url === `${config.ipv4_url}/json` || details.url === `${config.ipv6_url}/json`;
-  const isDNSCheck =
-    checkDomain(details.url).domain === 'mullvad.net' &&
-    details.url.endsWith(`${config.dns_leak_domain}/`);
+  const isConnCheck = details.url === GEO_LOOKUP_URL;
 
-  return isExtensionRequest && (isConnCheck || isDNSCheck);
+  return isExtensionRequest && isConnCheck;
 };
 
 export const isLocalOrReservedIP = (hostname: string) => {

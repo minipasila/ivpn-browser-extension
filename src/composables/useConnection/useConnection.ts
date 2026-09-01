@@ -1,6 +1,6 @@
 import { InjectionKey, Ref, ref } from 'vue';
 import type { Connection } from '@/helpers/connCheck.types';
-import { connCheckIpv4, connCheckIpv6 } from '@/helpers/connCheck';
+import { connCheck } from '@/helpers/connCheck';
 
 const connection = ref({} as Connection);
 const isLoading = ref(false);
@@ -12,9 +12,7 @@ const updateConnection = async () => {
   isError.value = false;
   error.value = undefined;
   try {
-    const [ipv4Result, ipv6Result] = await Promise.all([connCheckIpv4(), connCheckIpv6()]);
-
-    connection.value = { ...ipv4Result, ipv6: ipv6Result };
+    connection.value = await connCheck();
   } catch (e) {
     console.log({ useConnectionError: e });
     isError.value = true;

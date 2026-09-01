@@ -1,7 +1,7 @@
 import { it, describe, expect } from 'vitest';
 
 import { isExtConnCheck, isLocalOrReservedIP } from '@/helpers/socksProxy/socksProxy';
-import { DEFAULT_CONFIG } from '@/helpers/config';
+import { GEO_LOOKUP_URL } from '@/helpers/connCheck';
 import { RequestDetails } from './socksProxy.types';
 
 vi.mock('@/helpers/socksProxy/getRandomSessionProxy', () => ({
@@ -79,64 +79,20 @@ describe('isExtConnCheck', () => {
     },
   };
 
-  it('should return true for extension IPv4 connection check', () => {
+  it('should return true for extension geo-lookup connection check', () => {
     const details: RequestDetails = {
       ...baseDetails,
-      url: `${DEFAULT_CONFIG.ipv4_url}/json`,
+      url: GEO_LOOKUP_URL,
       originUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
       documentUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
     };
     expect(isExtConnCheck(details)).toBeTruthy();
-  });
-
-  it('should return true for extension IPv6 connection check', () => {
-    const details: RequestDetails = {
-      ...baseDetails,
-      url: `${DEFAULT_CONFIG.ipv6_url}/json`,
-      originUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-      documentUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-    };
-    expect(isExtConnCheck(details)).toBeTruthy();
-  });
-
-  it('should return true for extension DNS check', () => {
-    const details: RequestDetails = {
-      ...baseDetails,
-      url: `https://c30d3da2-fc4f-4732-86cc-f233e1692eac.${DEFAULT_CONFIG.dns_leak_domain}/`,
-      originUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-      documentUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-    };
-    expect(isExtConnCheck(details)).toBeTruthy();
-  });
-
-  it('should return true for a dynamic DNS leak domain provided via config', () => {
-    const dynamicConfig = {
-      ...DEFAULT_CONFIG,
-      dns_leak_domain: 'dnsleak.dk-cph-conncheck-001.mullvad.net',
-    };
-    const details: RequestDetails = {
-      ...baseDetails,
-      url: 'https://c30d3da2-fc4f-4732-86cc-f233e1692eac.dnsleak.dk-cph-conncheck-001.mullvad.net/',
-      originUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-      documentUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-    };
-    expect(isExtConnCheck(details, dynamicConfig)).toBeTruthy();
-  });
-
-  it('should return false for DNS check with the wrong base domain', () => {
-    const details: RequestDetails = {
-      ...baseDetails,
-      url: 'https://example.com#am.i.mullvad.net/',
-      originUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-      documentUrl: 'moz-extension://8ad8e256-a9a0-4017-b302-1345ac426553/dist/options/index.html',
-    };
-    expect(isExtConnCheck(details)).toBeFalsy();
   });
 
   it('should return false for non-extension requests', () => {
     const details: RequestDetails = {
       ...baseDetails,
-      url: 'https://ipv4.am.i.mullvad.net/json',
+      url: GEO_LOOKUP_URL,
       documentUrl: 'https://example.com',
       originUrl: 'https://example.com',
     };

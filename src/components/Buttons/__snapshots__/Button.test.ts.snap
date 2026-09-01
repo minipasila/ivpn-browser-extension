@@ -26,10 +26,10 @@ exports[`Button > should render an a tag 1`] = `
 <a
   class="btn whitespace-nowrap"
   data-v-814a3da6=""
-  href="https://www.mullvad.net"
+  href="https://www.ivpn.net"
 >
   
-  Mullvad
+  IVPN
   
 </a>
 `;

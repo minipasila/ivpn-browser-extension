@@ -35,8 +35,7 @@ export const defaultSettings: Recommendation[] = [
     id: 'default-search',
     name: 'Use a privacy friendly search engine',
     description: 'We recommend using a privacy friendly search engine, like DuckDuckGo.',
-    homeUrl:
-      'https://mullvad.net/en/blog/2021/2/24/dont-duck-the-issue-consider-your-privacy-and-search-engines/',
+    homeUrl: 'https://www.ivpn.net/privacy-guides/',
     activated: false,
     ignored: false,
     ctaLabel: undefined,

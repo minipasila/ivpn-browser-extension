@@ -6,8 +6,10 @@ import { addCountryCode } from '@/helpers/socksProxy/addCountryCode';
 import { groupByCountryAndCity } from '@/helpers/socksProxy/groupByCountryAndCity';
 import { sortProxiesByCountryAndCity } from '@/helpers/socksProxy/sortProxiesByCountryAndCity';
 import { SocksProxy } from '@/helpers/socksProxy/socksProxies.types';
+import { ivpnServersToSocksProxies } from '@/helpers/socksProxy/ivpnAdapter';
+import { IVpnServersStatsResponse } from '@/helpers/socksProxy/ivpn.types';
 
-const SOCKS_API_URL = 'https://api.mullvad.net/network/v1-beta1/socks-proxies';
+const SOCKS_API_URL = 'https://api.ivpn.net/v5/servers/stats';
 const NETWORK_ERROR = `The proxy list couldn't be loaded. Please try again later.`;
 
 const { flatProxiesList } = useStore();
@@ -27,17 +29,12 @@ const getSocksProxies = async () => {
 
   try {
     const response = await fetch(SOCKS_API_URL);
-    const data: SocksProxy[] = await response.json();
-    flatProxiesList.value = data
-      .filter((proxy: SocksProxy) => {
-        return proxy.online && proxy.ipv4_address && proxy.hostname;
-      })
-      .map((proxy: SocksProxy) => {
-        proxy.hostname = proxy.hostname
-          .replace('wg-socks5-', '')
-          .replace('.relays.mullvad.net', '');
-        return proxy;
-      });
+    const raw: IVpnServersStatsResponse = await response.json();
+    // Transform the IVPN servers/stats response into the flat SocksProxy[]
+    // shape the rest of the pipeline expects. The adapter filters inactive
+    // servers and parses the socks5 "hostname:internal_ip" field.
+    const data: SocksProxy[] = ivpnServersToSocksProxies(raw);
+    flatProxiesList.value = data;
   } catch (e: unknown) {
     isError.value = true;
 

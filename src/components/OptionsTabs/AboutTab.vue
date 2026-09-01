@@ -10,7 +10,7 @@ import { version } from '@/helpers/browserExtension';
 <template>
   <div class="flex items-center p-3 pb-1">
     <n-tag round :bordered="false" type="info" class="mr-4">
-      <a href="https://github.com/mullvad/browser-extension/releases">
+      <a href="https://github.com/minipasila/ivpn-browser-extension/releases">
         {{ version }} | Changelog
       </a>
       <template #icon>
@@ -18,7 +18,7 @@ import { version } from '@/helpers/browserExtension';
       </template>
     </n-tag>
     <n-tag round :bordered="false" type="info">
-      <a href="https://github.com/mullvad/browser-extension"> Source code </a>
+      <a href="https://github.com/minipasila/ivpn-browser-extension"> Source code </a>
       <template #icon>
         <FeGithub />
       </template>
@@ -27,8 +27,10 @@ import { version } from '@/helpers/browserExtension';
 
   <n-card class="mt-4">
     <p>
-      Mullvad Browser Extension as a whole is licensed
-      <a href="https://github.com/mullvad/browser-extension/blob/master/LICENSE.md"> GPLv3+</a>
+      IVPN Browser Extension as a whole is licensed
+      <a href="https://github.com/minipasila/ivpn-browser-extension/blob/master/LICENSE.md">
+        GPLv3+</a
+      >
       except for the parts specified below:
     </p>
 

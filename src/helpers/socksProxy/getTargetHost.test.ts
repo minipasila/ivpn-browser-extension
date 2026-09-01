@@ -10,9 +10,9 @@ const proxyDetails: Record<string, ProxyDetails> = {
     city: 'Tirana',
     proxyDNS: true,
   },
-  'mullvad.net': {
+  'ivpn.net': {
     socksEnabled: true,
-    server: 'at-vie-wg-001',
+    server: 'at1',
     country: 'Austria',
     countryCode: 'at',
     city: 'Vienna',
@@ -39,12 +39,12 @@ const proxyDetails: Record<string, ProxyDetails> = {
 describe('getTargetHost', () => {
   test('returns exact host when it exists in proxy details', () => {
     expect(getTargetHost('youtube.com', proxyDetails)).toBe('youtube.com');
-    expect(getTargetHost('mullvad.net', proxyDetails)).toBe('mullvad.net');
+    expect(getTargetHost('ivpn.net', proxyDetails)).toBe('ivpn.net');
   });
 
   test('returns domain when subdomain exists and domain has proxy', () => {
     expect(getTargetHost('www.youtube.com', proxyDetails)).toBe('youtube.com');
-    expect(getTargetHost('sub.mullvad.net', proxyDetails)).toBe('mullvad.net');
+    expect(getTargetHost('sub.ivpn.net', proxyDetails)).toBe('ivpn.net');
   });
 
   test('returns exact subdomain host when it exists in proxy details', () => {

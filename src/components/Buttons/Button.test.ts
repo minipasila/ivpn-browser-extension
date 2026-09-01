@@ -7,12 +7,12 @@ import Button from '@/components/Buttons/Button.vue';
 describe('Button', () => {
   it('should render an a tag', () => {
     const wrapper = mount(Button, {
-      props: { href: 'https://www.mullvad.net' },
-      slots: { default: 'Mullvad' },
+      props: { href: 'https://www.ivpn.net' },
+      slots: { default: 'IVPN' },
     });
     const aTag = wrapper.find('a');
     expect(aTag.exists()).toBe(true);
-    expect(aTag.attributes('href')).toBe('https://www.mullvad.net');
+    expect(aTag.attributes('href')).toBe('https://www.ivpn.net');
 
     expect(wrapper.element).toMatchSnapshot();
   });

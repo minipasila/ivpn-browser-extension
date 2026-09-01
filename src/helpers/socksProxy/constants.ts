@@ -5,4 +5,7 @@ export const baseConfig: Partial<ProxyInfo> = {
   proxyDNS: true,
 };
 
-export const socksIp = '10.64.0.1';
+// IVPN local SOCKS5 gateway IP (socks5.gw.ivpn.net). Used as a fallback when
+// a proxy entry has no explicit internal IP. Only reachable when the IVPN
+// desktop app is connected.
+export const socksIp = '10.1.0.1';

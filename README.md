@@ -1,18 +1,25 @@
-![ci](https://github.com/mullvad/browser-extension/actions/workflows/ci.yml/badge.svg)
+# IVPN Browser Extension
 
-# Mullvad Browser Extension
+IVPN Browser Extension is a Firefox extension improving your browser experience while using IVPN. It
+displays information about your connection and provides one-click access to
+[SOCKS5 proxy servers](https://www.ivpn.net/knowledgebase/general/socks5-proxy-service/).
 
-Mullvad Browser Extension is a Firefox extension improving your browser experience while using
-Mullvad VPN. It also displays information about the connection, recommends optimal DNS settings, and
-a one-click access to [proxy servers](https://mullvad.net/en/help/socks5-proxy/).
+> **Note:** This is a community fork of
+> [Mullvad's browser extension](https://github.com/mullvad/browser-extension), adapted to use IVPN's
+> API and SOCKS5 proxy service. It is not affiliated with or endorsed by IVPN Limited.
+
+## Disclaimer
+
+**This software is provided "as is", without warranty of any kind, express or implied.** Use it at
+your own risk. The maintainers of this fork are not responsible for any damage, data loss, or
+security issues that may arise from using this extension. You are solely responsible for verifying
+that the extension behaves as expected in your environment and that it meets your privacy and
+security requirements. Always review the source code before installing untrusted browser extensions.
 
 ## Download
 
-You can visit our [download page](https://mullvad.net/en/download/browser/extension) to get the
-latest release.
-
-The extension is also available here on Github in the
-[Releases](https://github.com/mullvad/browser-extension/releases).
+The extension is available here on Github in the
+[Releases](https://github.com/minipasila/ivpn-browser-extension/releases).
 
 ## Development
 
@@ -74,18 +81,18 @@ local storage). It will require some manual configuration:
 
 ## Permissions
 
-Mullvad Browser Extension requires the following permissions:
+IVPN Browser Extension requires the following permissions:
 
 - `management` to be able to recommend third party extensions
 - `privacy` to disable webRTC and check HTTPS-Only status
 - `storage` to save preferences
 - `search` to recommend other search engines
-- `*://*.mullvad.net/*` to get proxy servers list and display your connection information (See
+- `*://*.ivpn.net/*` to get proxy servers list and display your connection information (See
   `Network requests` for details)
 
 The following permissions are optional, but are needed to use the proxy feature:
 
-- `proxy` to configure and use Mullvad proxy servers
+- `proxy` to configure and use IVPN proxy servers
 - `tabs` to show proxy settings from active tab
 - `<all_urls>` to specify a proxy configuration per domain (each request needs to be intercepted)
 
@@ -95,14 +102,20 @@ _Permissions are automatically accepted when testing the extension._
 
 Two external network requests are made by the extension:
 
-- `api.mullvad.net` to get the lastest proxy servers (Frequency: each time the
+- `api.ivpn.net` to get the latest proxy servers (Frequency: each time the
   `Select proxy server location` drawer is opened)
-- `am.i.mullvad.net` to get the connection information (Frequency: each time the popup is started
-  and each time the proxy is connected/disconnected)
+- `api.ivpn.net/v4/geo-lookup` to get the connection information (Frequency: each time the popup is
+  started and each time the proxy is connected/disconnected)
 
 _External links are marked with this icon_
 ![External Link icon](https://github.com/feathericon/feathericon/blob/master/src/svg/link-external.svg)
 
 ## Source code
 
-Source code is available in the [Github repo](https://github.com/mullvad/browser-extension).
+Source code is available in the [Github repo](https://github.com/minipasila/ivpn-browser-extension).
+
+## License
+
+IVPN Browser Extension as a whole is licensed GPLv3+, except for the parts specified in
+[LICENSE.md](./LICENSE.md). This is a fork of the Mullvad Browser Extension, which is also licensed
+GPLv3+.

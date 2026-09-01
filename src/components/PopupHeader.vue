@@ -3,14 +3,12 @@ import { computed, inject } from 'vue';
 import { NIcon, NTag } from 'naive-ui';
 
 import FeCog from '@/components/Icons/FeCog.vue';
-import FeDrop from '@/components/Icons/FeDrop.vue';
 import FeHelpCircle from '@/components/Icons/FeHelpCircle.vue';
 import FeLock from '@/components/Icons/FeLock.vue';
 import FeLockOff from '@/components/Icons/FeLockOff.vue';
 import FePower from './Icons/FePower.vue';
 import FeShuffle from '@/components/Icons//FeShuffle.vue';
-import FeXCircle from '@/components/Icons/FeXCircle.vue';
-import MuSpinner from '@/components/Icons/MuSpinner.vue';
+import IvSpinner from '@/components/Icons/IvSpinner.vue';
 import TitleCategory from '@/components/TitleCategory.vue';
 
 import { openOptions } from '@/helpers/browserExtension';
@@ -22,11 +20,6 @@ import { ConnectionKey, defaultConnection } from '@/composables/useConnection/us
 import useRandomProxy from '@/composables/useRandomProxy';
 
 defineProps<{
-  isErrorDNS: boolean;
-  isLeakingDNS: boolean;
-  isLoadingDNS: boolean;
-  isMullvadDNS: boolean;
-  isMullvadDoh: boolean;
   isProxyInUse: boolean;
 }>();
 
@@ -34,7 +27,7 @@ const { activeTabHost, isAboutPage, isExtensionPage } = useActiveTab();
 const { randomProxyMode } = useRandomProxy();
 const { connection, isLoading, isError } = inject(ConnectionKey, defaultConnection);
 
-const isMullvad = computed(() => connection.value.isMullvad);
+const isIvpn = computed(() => connection.value.isIvpn);
 
 const displayHost = computed(() => truncateHost(activeTabHost.value));
 </script>
@@ -65,24 +58,10 @@ const displayHost = computed(() => truncateHost(activeTabHost.value));
         <span> VPN </span>
         <template #icon>
           <n-icon size="20">
-            <MuSpinner v-if="isLoading" />
-            <FeLock v-else-if="isMullvad" class="text-success" />
+            <IvSpinner v-if="isLoading" />
+            <FeLock v-else-if="isIvpn" class="text-success" />
             <FeHelpCircle v-else-if="isError" class="text-warning" />
             <FeLockOff v-else class="text-error" />
-          </n-icon>
-        </template>
-      </n-tag>
-
-      <n-tag round type="info" class="ml-1">
-        <span v-if="isMullvadDoh"> DOH </span>
-        <span v-else> DNS </span>
-        <template #icon>
-          <n-icon size="20">
-            <MuSpinner v-if="isLoadingDNS" />
-            <FeHelpCircle v-else-if="isErrorDNS" class="text-warning" />
-            <FeDrop v-else-if="isLeakingDNS && isMullvad" class="text-error" />
-            <FeXCircle v-else-if="isLeakingDNS && !isMullvad" class="text-error" />
-            <FeLock v-else-if="isMullvadDNS || isMullvadDoh" class="text-success" />
           </n-icon>
         </template>
       </n-tag>

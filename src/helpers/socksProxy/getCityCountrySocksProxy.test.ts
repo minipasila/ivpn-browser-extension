@@ -4,21 +4,21 @@ import getCityCountrySocksProxy from '@/helpers/socksProxy/getCityCountrySocksPr
 import { Country } from '@/helpers/socksProxy/socksProxies.types';
 
 const gothenburgProxies = [
-  { hostname: 'se3-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
-  { hostname: 'se5-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
-  { hostname: 'se9-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se1', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se2', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se3', port: 1080, location: { countryCode: 'se' } },
 ];
 
 const malmoProxies = [
-  { hostname: 'se1-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
-  { hostname: 'se4-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se4', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se5', port: 1080, location: { countryCode: 'se' } },
 ];
 
 const stockholmProxies = [
-  { hostname: 'se2-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
-  { hostname: 'se6-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
-  { hostname: 'se7-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
-  { hostname: 'se8-wg.socks5.mullvad.net', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se6', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se7', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se8', port: 1080, location: { countryCode: 'se' } },
+  { hostname: 'se9', port: 1080, location: { countryCode: 'se' } },
 ];
 
 const mockSocksProxies = [

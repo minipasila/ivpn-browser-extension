@@ -1,5 +1,8 @@
-Mullvad Browser Extension as a whole is presently Licensed GPL v3+, except for the parts specified
+IVPN Browser Extension as a whole is presently Licensed GPL v3+, except for the parts specified
 below:
+
+> This is a fork of the Mullvad Browser Extension. The original project is licensed GPLv3+ and is
+> available at https://github.com/mullvad/browser-extension.
 
 - Open Sans | [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 - Source Sans Pro |

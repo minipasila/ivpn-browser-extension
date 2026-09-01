@@ -1,26 +1,14 @@
-export type BlackListResult = {
-  blacklisted: boolean;
-  link: string;
-  name: string;
-};
-
-export interface AmIMullvadServerResponse {
-  city?: string;
+// Response from the IVPN geo-lookup API (https://api.ivpn.net/v4/geo-lookup)
+export interface IVpnGeoLookupResponse {
+  ip_address?: string;
+  isp?: string;
+  organization?: string;
   country?: string;
-  ip?: string;
+  country_code?: string;
+  city?: string;
   latitude?: number;
   longitude?: number;
-  mullvad_exit_ip?: boolean;
-  mullvad_exit_ip_hostname?: string;
-  mullvad_server_type?: string;
-  organization?: string;
-}
-
-export interface Ipv4ServerResponse extends AmIMullvadServerResponse {
-  blacklisted?: {
-    blacklisted: boolean;
-    results: BlackListResult[];
-  };
+  isIvpnServer?: boolean;
 }
 
 export type Connection = {
@@ -28,9 +16,6 @@ export type Connection = {
   country?: string;
   countryCode?: string;
   ip?: string;
-  ipv6?: string;
-  isMullvad: boolean;
-  protocol?: string;
-  provider?: string;
-  server?: string;
+  isp?: string;
+  isIvpn: boolean;
 };

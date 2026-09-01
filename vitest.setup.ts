@@ -5,7 +5,7 @@ global.browser = {
   runtime: {
     getManifest: vi.fn(() => ({
       version: '0.9.11',
-      name: 'Mullvad Browser Extension',
+      name: 'IVPN Browser Extension',
     })),
     sendMessage: vi.fn(),
     onMessage: {

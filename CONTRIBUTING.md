@@ -1,6 +1,6 @@
-# How to contribute to the Mullvad Browser Extension extension
+# How to contribute to the IVPN Browser Extension
 
-The Mullvad Browser Extension is open sourced for many reasons, but primarily
+The IVPN Browser Extension is open sourced for many reasons, but primarily
 
 - we believe the sharing of knowledge will advance the world more quickly and help it to become a
   better place
@@ -16,8 +16,9 @@ If you find a bug in the extension's code:
 - add it in the issue tracker.
 
 Please send all other problems or questions **not directly related to the extension's development**
-to [support@mullvad.net](mailto:support@mullvad.net). This includes connection issues, questions
-regarding your account, and problems with the Mullvad VPN infrastructure or servers.
+to the [issue tracker](https://github.com/minipasila/ivpn-browser-extension/issues). This includes
+connection issues, questions regarding your account, and problems with the IVPN VPN infrastructure
+or servers.
 
 ## Submitting feature requests
 
@@ -28,10 +29,10 @@ If you would like to suggest a feature:
 
 ## Submitting changes
 
-If you would like to contribute to the development of the Mullvad Browser Extension, please
-carefully read the following sections first and then feel free to submit a pull request.
+If you would like to contribute to the development of the IVPN Browser Extension, please carefully
+read the following sections first and then feel free to submit a pull request.
 
-> While we appreciate your interest in helping us to improve Mullvad Browser Extension, please
+> While we appreciate your interest in helping us to improve IVPN Browser Extension, please
 > understand that choosing which submitted changes to merge is fully at our discretion, based upon
 > our development plans for the extension.
 

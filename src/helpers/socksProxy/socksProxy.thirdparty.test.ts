@@ -6,17 +6,12 @@ import { RequestDetails } from './socksProxy.types';
 
 const protectedProxy = {
   type: ProxyInfoType.socks,
-  host: '10.64.0.1',
+  host: '10.1.0.1',
   port: 1080,
   proxyDNS: true,
 };
 
 const storageState = {
-  connCheckConfig: JSON.stringify({
-    dns_leak_domain: 'dnsleak.am.i.mullvad.net',
-    ipv4_url: 'https://ipv4.am.i.mullvad.net',
-    ipv6_url: 'https://ipv6.am.i.mullvad.net',
-  }),
   excludedHosts: JSON.stringify([]),
   globalProxy: JSON.stringify({}),
   globalProxyDetails: JSON.stringify({ socksEnabled: false }),

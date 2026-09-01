@@ -36,7 +36,10 @@ watchEffect(() => {
       />
     </div>
 
-    <Button href="https://mullvad.net/en/help/webrtc/" @click="closePopup">
+    <Button
+      href="https://www.ivpn.net/knowledgebase/general/my-ip-is-being-leaked-by-webrtc-how-do-i-disable-it/"
+      @click="closePopup"
+    >
       <ExternalLinkIconLabel text="Read the guide" />
     </Button>
   </n-card>

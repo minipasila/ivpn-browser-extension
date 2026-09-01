@@ -5,7 +5,7 @@ import FeCheckCircle from '@/components/Icons/FeCheckCircle.vue';
 import FeCheck from '@/components/Icons/FeCheck.vue';
 import FeInfo from '@/components/Icons/FeInfo.vue';
 import FeWarning from '@/components/Icons/FeWarning.vue';
-import MuSpinner from '@/components/Icons/MuSpinner.vue';
+import IvSpinner from '@/components/Icons/IvSpinner.vue';
 import FeDrop from '@/components/Icons/FeDrop.vue';
 
 export type IconType = 'warning' | 'success' | 'info' | 'spinner' | 'leak' | 'check';
@@ -20,7 +20,7 @@ defineProps<{ text?: string; type: IconType }>();
       <FeCheck v-if="type === 'check'" class="text-success" />
       <FeWarning v-if="type === 'warning'" class="text-warning" />
       <FeInfo v-if="type === 'info'" class="text-info" />
-      <MuSpinner v-if="type === 'spinner'" class="text-info" />
+      <IvSpinner v-if="type === 'spinner'" class="text-info" />
       <FeDrop v-if="type === 'leak'" class="text-error" />
     </n-icon>
 
