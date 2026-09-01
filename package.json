@@ -1,7 +1,7 @@
 {
   "name": "ivpn-browser-extension",
   "displayName": "IVPN Browser Extension",
-  "version": "0.9.11",
+  "version": "1.0.0",
   "description": "Improve your IVPN experience, in your browser.",
   "private": true,
   "type": "module",
